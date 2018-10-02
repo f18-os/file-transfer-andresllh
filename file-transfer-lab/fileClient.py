@@ -71,27 +71,23 @@ if s is None:
    
    
 
-while(True):
-    user_input = input('What file would you like to send?')
-    if user_input == 'exit':
-        break
-    else:
-        try:
-            f = open(user_input, 'r')
-        except:
-            print('Error while opening file, make sure that it exists and is in the current directory')
+user_input = input('What file would you like to send?')
+try:
+    f = open(user_input, 'r')
+except:
+    print('Error while opening file, make sure that it exists and is in the current directory')
         
-        
-        print('Sending file to server')
-        lines = f.readlines()
-        for line in lines:
-            # need to encode line as bytes
-            line = bytearray(line.strip('\n'), 'utf-8')
-            framedSend(s, line, debug)
-
-        try:
-            print("received:", framedReceive(s, debug))
-        except:
-            print('Error while receiving')
+print('Sending file to server')
+lines = f.readlines()
+for line in lines:
+# need to encode line as bytes
+    if line is '\n':
+        line = ' ' + line
+    line = bytearray(line.strip('\n'), 'utf-8')
+    framedSend(s, line, debug)
+try:
+    print("received:", framedReceive(s, debug))
+except:
+    print('Error while receiving')
             
 

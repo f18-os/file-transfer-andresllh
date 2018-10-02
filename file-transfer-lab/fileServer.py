@@ -46,11 +46,17 @@ while True:
 
     if not os.fork():
         print("new child process handling connection from", addr)
+        f = open('received.txt', 'w+')
         while True:
             payload = framedReceive(sock, debug)
+            rec = str(payload)
+            rec = rec[2:-1]
+            f.write(rec + '\n')
             if debug: print("rec'd: ", payload)
             if not payload:
                 if debug: print("child exiting")
                 sys.exit(0)
             payload += b"!"             # make emphatic!
             framedSend(sock, payload, debug)
+        f.close()
+
