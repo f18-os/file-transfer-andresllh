@@ -1,4 +1,17 @@
 #! /usr/bin/env python3
+'''
+Your assignment is to write fileClient.py and fileServer.py which can transfer a file ("put") from a client to the server. Your programs should:
+
+be in the file-transfer-lab subdir
+work with and without the proxy
+support multiple clients simultaneously using fork()
+gracefully deal with scenarios such as:
+zero length files
+user attempts to transmit a file which does not exist
+file already exists on the server
+the client or server unexpectedly disconnect
+optional (unless you're taking this course for grad credit): be able to request ("get") files from server
+'''
 
 import sys, os, socket
 sys.path.append("../lib")       # for params
