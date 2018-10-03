@@ -79,6 +79,7 @@ except:
         
 print('Sending file to server')
 lines = f.readlines()
+framedSend(s, bytearray(user_input.strip('\n'), 'utf-8'), debug)
 for line in lines:
 # need to encode line as bytes
     if line is '\n':
