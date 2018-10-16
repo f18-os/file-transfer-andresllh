@@ -53,12 +53,10 @@ while True:
                 file_name = framedReceive(sock, debug)
                 file_name = str(file_name)
                 file_name = file_name[2:-1]
-                f = open('server_' + file_name, 'w+')
+                f = open('server_' + file_name, 'wb+')
             else:
                 payload = framedReceive(sock, debug)
-                rec = str(payload)
-                rec = rec[2:-1]
-                f.write(rec + '\n')
+                f.write(payload)
                 if debug: print("rec'd: ", payload)
                 if not payload:
                     if debug: print("child exiting")

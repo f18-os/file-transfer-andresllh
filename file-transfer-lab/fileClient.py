@@ -73,19 +73,17 @@ if s is None:
 
 user_input = input('What file would you like to send?')
 try:
-    f = open(user_input, 'r')
+    f = open(user_input, 'rb')
 except:
     print('Error while opening file, make sure that it exists and is in the current directory')
         
 print('Sending file to server')
-lines = f.readlines()
-framedSend(s, bytearray(user_input.strip('\n'), 'utf-8'), debug)
-for line in lines:
-# need to encode line as bytes
-    if line is '\n':
-        line = ' ' + line
-    line = bytearray(line.strip('\n'), 'utf-8')
+framedSend(s, bytearray(user_input, 'utf-8'), debug)
+line = f.read(100)
+while(line):
     framedSend(s, line, debug)
+    line = f.read(100)
+f.close()
 try:
     print("received:", framedReceive(s, debug))
 except:
